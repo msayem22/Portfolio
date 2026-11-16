@@ -1,14 +1,25 @@
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   background: #f5f7fa;
   color: #222;
   line-height: 1.6;
 }
 
 h1, h2, h3 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   color: #1f3a5f;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  background: white;
+  color: #1f3a5f;
+  padding: 8px 16px;
+}
+.skip-link:focus {
+  left: 0;
 }
 
 #header {
@@ -21,6 +32,14 @@ h1, h2, h3 {
   margin: 0 0 16px 0;
 }
 
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .nav a {
   color: white;
   text-decoration: none;
@@ -29,6 +48,11 @@ h1, h2, h3 {
 
 .nav a:hover {
   color: #f2a541;
+}
+
+.nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 6px;
 }
 
 main {
@@ -50,11 +74,82 @@ main {
   border-top: 4px solid #f2a541;
 }
 
+.card a {
+  color: #0b5cad;
+}
+
 footer {
   background: #1f3a5f;
   color: white;
   text-align: center;
   padding: 24px;
+}
+
+:focus-visible {
+  outline: 3px solid #1f3a5f;
+  outline-offset: 2px;
+}
+#header :focus-visible,
+footer :focus-visible {
+  outline-color: white;
+}
+
+fieldset {
+  border: 1px solid #5b6675;
+  border-radius: 8px;
+  margin: 0 0 24px 0;
+  padding: 16px;
+}
+legend {
+  font-weight: bold;
+  color: #1f3a5f;
+}
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: bold;
+}
+input, select, textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+  padding: 10px;
+  font: inherit;
+  border: 2px solid #5b6675;
+  border-radius: 6px;
+}
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: #b00020;
+}
+.error {
+  color: #b00020;
+  font-weight: bold;
+  margin: 6px 0 0 0;
+}
+.error::before {
+  content: "Error: ";
+}
+.hint {
+  color: #4a5563;
+}
+button {
+  font: inherit;
+  font-weight: bold;
+  color: white;
+  background: #1f3a5f;
+  border: 0;
+  border-radius: 6px;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+button:hover {
+  background: #14263f;
+}
+#form-status {
+  font-weight: bold;
 }
 
 @media (min-width: 768px) {
