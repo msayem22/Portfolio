@@ -1,47 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About - My Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About - My Portfolio</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header id="header">
+<h1>About Me</h1>
+<nav class="nav" aria-label="Main">
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="about.html" aria-current="page">About</a></li>
+</ul>
+</nav>
+</header>
+<main id="main">
+<div class="cards">
+<section class="card">
+<h2>Who I Am</h2>
+<p>A little about me, what I'm studying, and what I like to do.</p>
+</section>
+<section class="card">
+<h2>Contact</h2>
+<h3>Email</h3>
+<p><a href="mailto:msayem@my.campus.edu">msayem@my.campus.edu</a></p>
+<h3>GitHub</h3>
+<p><a href="https://github.com/msayem22">github.com/msayem22</a></p>
+<h3>Send me a message</h3>
+<p class="hint">All fields are required.</p>
+<form id="contact-form" novalidate>
+<fieldset>
+<legend>Your details</legend>
+<label for="name">Full name</label>
+<input type="text" id="name" name="name" autocomplete="name" required aria-describedby="name-error">
+<p class="error" id="name-error" hidden></p>
+<label for="email">Email address</label>
+<input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-error">
+<p class="error" id="email-error" hidden></p>
+</fieldset>
+<fieldset>
+<legend>Your message</legend>
+<label for="topic">Topic</label>
+<select id="topic" name="topic" required aria-describedby="topic-error">
+<option value="">Select a topic</option>
+<option value="project">Project inquiry</option>
+<option value="feedback">Feedback</option>
+<option value="other">Other</option>
+</select>
+<p class="error" id="topic-error" hidden></p>
+<label for="message">Message</label>
+<textarea id="message" name="message" rows="5" required aria-describedby="message-error"></textarea>
+<p class="error" id="message-error" hidden></p>
+</fieldset>
+<button type="submit">Send message</button>
+<p id="form-status" role="status"></p>
+</form>
+</section>
+</div>
+</main>
+<footer>
+<p>Made by Mohammed Sayem, 2026</p>
+</footer>
+<script>
+const form = document.getElementById("contact-form");
+const status = document.getElementById("form-status");
 
-  <header id="header">
-    <h1>About Me</h1>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-    </nav>
-  </header>
+const labels = {
+  name: "your full name",
+  email: "your email address",
+  topic: "a topic",
+  message: "a message"
+};
 
-  <main>
-    <section>
-      <h2>Who I Am</h2>
-      <p>A little about me, what I'm studying, and what I like to do.</p>
-    </section>
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  let firstBad = null;
 
-    <section>
-      <h2>Contact</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Email</h3>
-          <p>msayem@my.campus.edu</p>
-        </div>
-        <div class="card">
-          <h3>GitHub</h3>
-          <p>github.com/msayem22</p>
-        </div>
-      </div>
-    </section>
-  </main>
+  const fields = form.querySelectorAll("input, select, textarea");
 
-  <footer>
-    <p>Made by Mohammed Sayem, 2026</p>
-  </footer>
+  fields.forEach(function (field) {
+    const errorBox = document.getElementById(field.id + "-error");
+    let message = "";
 
+    if (field.value.trim() === "") {
+      message = "Please enter " + labels[field.id] + ".";
+    } else if (field.type === "email" && !field.value.includes("@")) {
+      message = "Please enter a real email address, like name@example.com.";
+    }
+
+    errorBox.textContent = message;
+    errorBox.hidden = (message === "");
+    field.setAttribute("aria-invalid", message !== "");
+
+    if (message !== "" && firstBad === null) {
+      firstBad = field;
+    }
+  });
+
+  if (firstBad) {
+    status.textContent = "Please fix the errors above.";
+    firstBad.focus();
+  } else {
+    status.textContent = "Thanks! Your message was sent.";
+    form.reset();
+  }
+});
+</script>
 </body>
 </html>
